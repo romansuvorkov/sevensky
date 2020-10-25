@@ -2,9 +2,9 @@ import React, {useContext, useState} from 'react';
 import DataContext from '../contexts/DataContext';
 
 function Spot(props) {
-    const { tables, vips, setTables, activeTable, setActiveTable, activeTableOrderer, setActiveTableOrderer,
-        activeTableOrderTime, setActiveTableOrderTime, activeTableSpotsQuantity, setActiveTableSpotsQuantity } = useContext(DataContext);
-    const { occupied, ordered, name, type, active, orderer,  } = props.data;
+    const { vips, tables, balcony, setVips, setTables, setBalcony, activeTable, setActiveTable, activeTableOrderer, setActiveTableOrderer,
+        activeTableOrderTime, setActiveTableOrderTime, activeTableSpotsQuantity, setActiveTableSpotsQuantity, activeTableType, setActiveTableType } = useContext(DataContext);
+    const { occupied, ordered, name, type, orderer, spotQuantity  } = props.data;
     // console.log(tables);
     // console.log(occupied);
     // console.log(ordered);
@@ -13,17 +13,19 @@ function Spot(props) {
 
     const handleClick = () => {
 
-        setTables(prevState => ({...prevState, ...prevState[name].active = true
-        }));
-
-        setActiveTable(type);
+        if (type === 'table') {
+            setTables(prevState => ({...prevState, ...prevState[name].active = true}));
+        } else if (type === 'vip') {
+            setVips(prevState => ({...prevState, ...prevState[name].active = true}));
+        } else if (type === 'balcony') {
+            setBalcony(prevState => ({...prevState, ...prevState[name].active = true}));
+        }
+        setActiveTable(name);
         setActiveTableOrderer(orderer);
         setActiveTableOrderTime(ordered);
-        setActiveTableSpotsQuantity();
+        setActiveTableSpotsQuantity(spotQuantity);
+        setActiveTableType(type);
 
-
-
-        
 
 
 
@@ -49,7 +51,7 @@ function Spot(props) {
     }
     
     return (
-        <div className={active ? "table_item test" : "table_item"} onClick={() => handleClick()}>
+        <div className={activeTable === name ? "table_item test" : "table_item"} onClick={() => handleClick()}>
             <span>{name}</span>
         </div>
     );

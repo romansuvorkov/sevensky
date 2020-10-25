@@ -8,8 +8,8 @@ export default function tableCreator(name, number) {
             ordered: false,
             name: prefix,
             type: name,
-            active: false,
-            orderer: ''
+            orderer: '',
+            spotQuantity: 2
         } 
     }
 
