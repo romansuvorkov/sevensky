@@ -3,36 +3,38 @@ import DataContext from '../contexts/DataContext';
 
 
 function Interface() {
-    const { tables, vips, setTables, activeTable, setActiveTable, activeTableOrderer, setActiveTableOrderer,
-        activeTableOrderTime, setActiveTableOrderTime, activeTableSpotsQuantity, setActiveTableSpotsQuantity } = useContext(DataContext);
-
-    const [ordererNameValue, setOrdererNameValue] = useState('');
-    const [orderTimeValue, setOrderTimeValue] = useState('');
-    
-
-
-
-
+    const { vips, tables, balcony, setVips, setTables, setBalcony, activeTable, setActiveTable, activeTableOrderer, setActiveTableOrderer,
+        activeTableOrderTime, setActiveTableOrderTime, activeTableSpotsQuantity, setActiveTableSpotsQuantity, activeTableType, setActiveTableType } = useContext(DataContext);
 
     const handleOrdererNameChange = (event) => {
         setActiveTableOrderer(event.target.value);
     }
 
     const handleOrderTimeChange = (event) => {
-        setOrderTimeValue(event.target.value);
+        setActiveTableOrderTime(event.target.value);
     }
 
     const handleOrdererNameSubmit = (event) => {
         event.preventDefault();
         const target = event.target;
-        console.log(ordererNameValue);
-        console.log(orderTimeValue);
-        setOrdererNameValue('');
+        if (activeTableType === 'table') {
+            setTables(prevState => ({...prevState, ...prevState[activeTable].orderer = activeTableOrderer}));
+        } else if (activeTableType === 'vip') {
+            setVips(prevState => ({...prevState, ...prevState[activeTable].orderer = activeTableOrderer}));
+        } else if (activeTableType === 'balcony') {
+            setBalcony(prevState => ({...prevState, ...prevState[activeTable].orderer = activeTableOrderer}));
+        }
     }
 
     const handleOrderTimeSubmit = (event) => {
         event.preventDefault();
-        console.log(orderTimeValue);
+        if (activeTableType === 'table') {
+            setTables(prevState => ({...prevState, ...prevState[activeTable].ordered = activeTableOrderTime}));
+        } else if (activeTableType === 'vip') {
+            setVips(prevState => ({...prevState, ...prevState[activeTable].ordered = activeTableOrderTime}));
+        } else if (activeTableType === 'balcony') {
+            setBalcony(prevState => ({...prevState, ...prevState[activeTable].ordered = activeTableOrderTime}));
+        }
     }
 
 
@@ -44,24 +46,20 @@ function Interface() {
                 <div className="active_table_order_wrapper">
                     <span className="active_table_orderer">Фамилия заказчика: {activeTableOrderer ? activeTableOrderer : 'Стол не заказан'}</span>
                     <form onSubmit={handleOrdererNameSubmit}>
-                    <input type="text" onChange={handleOrdererNameChange} value={activeTableOrderer ? activeTableOrderer : 'Введите имя заказчика'}></input>
+                    <input type="text" onChange={handleOrdererNameChange} value={activeTableOrderer ? activeTableOrderer : ''}></input>
                         <button type="submit">Сохранить</button>
                         <button type="reset">Отменить</button>
                     </form>
                     <span className="active_table_order_time">Время заказ стола: {activeTableOrderTime}</span>
                     <form onSubmit={handleOrderTimeSubmit}>
-                        <input type="time" onChange={handleOrderTimeChange} value={orderTimeValue ? orderTimeValue : '19:53'}></input>
+                        <input type="time" onChange={handleOrderTimeChange} value={activeTableOrderTime ? activeTableOrderTime : '00:00'}></input>
                         <button type="submit">Сохранить</button>
                         <button type="reset">Отменить</button>
                     </form>
                     <span className="active_table_occupied">Статус стола: {activeTableOrderTime}</span>
-                    <form>
-                        <button type="submit">Занят</button>
-                        <button type="submit">Свободен</button>
-                    </form>                   
+                        <button type="button">Занят</button>
+                        <button type="button">Свободен</button>                 
                 </div>
-                <span className="active_table_orderer">Фамилия заказчика: {activeTableOrderer}</span>
-                <span className="active_table_order_time">Время заказ стола: {activeTableOrderTime}</span>
             </div>
         </div>
     );

@@ -40,6 +40,7 @@ export default function DataProvider(props) {
     const [activeTableOrderTime, setActiveTableOrderTime] = useState(null);
     const [activeTableSpotsQuantity, setActiveTableSpotsQuantity] = useState(null);
     const [activeTableType, setActiveTableType] = useState(null);
+    const [activeTableStatus, setActiveTableStatus] = useState(false);
 
     // console.log(vips);
     // console.log(tables);
@@ -57,7 +58,8 @@ export default function DataProvider(props) {
     return (
         <DataContext.Provider value={{vips, tables, balcony, setVips, setTables, setBalcony,
         activeTable, setActiveTable, activeTableOrderer, setActiveTableOrderer,
-        activeTableOrderTime, setActiveTableOrderTime, activeTableSpotsQuantity, setActiveTableSpotsQuantity, activeTableType, setActiveTableType
+        activeTableOrderTime, setActiveTableOrderTime, activeTableSpotsQuantity, setActiveTableSpotsQuantity, activeTableType, setActiveTableType,
+        activeTableStatus, setActiveTableStatus
         }}>
             {props.children}
         </DataContext.Provider>
