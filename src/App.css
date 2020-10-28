@@ -38,11 +38,21 @@
 }
 
 .table_item {
-  width: 20px;
-  height: 20px;
+  width: 35px;
+  /* height: 20px; */
   border: 1px solid red;
+  font-size: 10px;
 }
 
-.test {
+.active_table {
   background-color: green;
+}
+
+.invisible {
+  display: none;
+}
+
+.table_item {
+  display: flex;
+  flex-direction: column;
 }

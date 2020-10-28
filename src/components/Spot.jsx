@@ -3,8 +3,8 @@ import DataContext from '../contexts/DataContext';
 
 function Spot(props) {
     const { vips, tables, balcony, setVips, setTables, setBalcony, activeTable, setActiveTable, activeTableOrderer, setActiveTableOrderer,
-        activeTableOrderTime, setActiveTableOrderTime, activeTableSpotsQuantity, setActiveTableSpotsQuantity, activeTableType, setActiveTableType } = useContext(DataContext);
-    const { occupied, ordered, name, type, orderer, spotQuantity  } = props.data;
+        activeTableOrderTime, setActiveTableOrderTime, activeTableSpotsQuantity, setActiveTableSpotsQuantity, activeTableType, setActiveTableType, activeTableID, setActiveTableID } = useContext(DataContext);
+    const { occupied, ordered, name, type, orderer, spotQuantity, id  } = props.data;
     // console.log(tables);
     // console.log(occupied);
     // console.log(ordered);
@@ -25,7 +25,7 @@ function Spot(props) {
         setActiveTableOrderTime(ordered);
         setActiveTableSpotsQuantity(spotQuantity);
         setActiveTableType(type);
-
+        setActiveTableID(id);
 
 
 
@@ -51,8 +51,10 @@ function Spot(props) {
     }
     
     return (
-        <div className={activeTable === name ? "table_item test" : "table_item"} onClick={() => handleClick()}>
+        <div className={activeTable === name ? "table_item active_table" : "table_item"} onClick={() => handleClick()}>
             <span>{name}</span>
+            <span>Мест:{spotQuantity}</span>
+            <span>{ordered}</span>
         </div>
     );
 }

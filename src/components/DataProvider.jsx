@@ -7,6 +7,8 @@ export default function DataProvider(props) {
     let vipsRaw = null;
     let tablesRaw = null;
     let balconyRaw = null;
+    // let orderedList = [];
+    const [orderedList, setOrderedList] = useState([]);
 
     // const testJson = JSON.stringify({test: 1231231});
     // localStorage.setItem('vips', testJson);
@@ -30,6 +32,10 @@ export default function DataProvider(props) {
         balconyRaw = tableCreator('balcony', 16);
     }
 
+    if (localStorage.orderedList !== undefined) {
+        orderedList = JSON.parse(localStorage.balcony);
+    }
+
     const [vips, setVips] = useState(vipsRaw);
     const [tables, setTables] = useState(tablesRaw);
     const [balcony, setBalcony] = useState(balconyRaw);
@@ -41,6 +47,7 @@ export default function DataProvider(props) {
     const [activeTableSpotsQuantity, setActiveTableSpotsQuantity] = useState(null);
     const [activeTableType, setActiveTableType] = useState(null);
     const [activeTableStatus, setActiveTableStatus] = useState(false);
+    const [activeTableID, setActiveTableID] = useState(null);
 
     // console.log(vips);
     // console.log(tables);
@@ -59,7 +66,7 @@ export default function DataProvider(props) {
         <DataContext.Provider value={{vips, tables, balcony, setVips, setTables, setBalcony,
         activeTable, setActiveTable, activeTableOrderer, setActiveTableOrderer,
         activeTableOrderTime, setActiveTableOrderTime, activeTableSpotsQuantity, setActiveTableSpotsQuantity, activeTableType, setActiveTableType,
-        activeTableStatus, setActiveTableStatus
+        activeTableStatus, setActiveTableStatus, orderedList, setOrderedList, activeTableID, setActiveTableID
         }}>
             {props.children}
         </DataContext.Provider>

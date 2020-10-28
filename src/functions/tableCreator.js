@@ -9,7 +9,8 @@ export default function tableCreator(name, number) {
             name: prefix,
             type: name,
             orderer: '',
-            spotQuantity: 2
+            spotQuantity: 2,
+            id: i
         } 
     }
 
